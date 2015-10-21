@@ -147,7 +147,8 @@ class BigRationalTest extends AbstractTestCase
      */
     public function testMin(array $values, $min)
     {
-        $this->assertBigRationalEquals($min, BigRational::min(... $values));
+        $result = call_user_func_array([BigRational::getNamespace(),'min'],$values);
+        $this->assertBigRationalEquals($min, $result);
     }
 
     /**
@@ -179,7 +180,8 @@ class BigRationalTest extends AbstractTestCase
      */
     public function testMax(array $values, $max)
     {
-        $this->assertBigRationalEquals($max, BigRational::max(... $values));
+        $result = call_user_func_array([BigRational::getNamespace(),'max'],$values);
+        $this->assertBigRationalEquals($max, $result);
     }
 
     /**
@@ -731,7 +733,7 @@ class BigRationalTest extends AbstractTestCase
     public function testToBigDecimal($number, $expected)
     {
         if ($expected === null) {
-            $this->setExpectedException(RoundingNecessaryException::class);
+            $this->setExpectedException(RoundingNecessaryException::getNamespace());
         }
 
         $actual = BigRational::of($number)->toBigDecimal();
@@ -828,10 +830,13 @@ class BigRationalTest extends AbstractTestCase
             ['1274512848871262052664/181119169279677131024612890541902743279933929443359375', null],
         ];
 
-        foreach ($tests as list ($number, $expected)) {
-            yield [$number, $expected];
-            yield ['-' . $number, $expected === null ? null : '-' . $expected];
+        $yield = [];
+        foreach ($tests as $test) {
+            list ($number, $expected) = $test;
+            $yield[] = [$number, $expected];
+            $yield[] = ['-' . $number, $expected === null ? null : '-' . $expected];
         }
+        return $yield;
     }
 
     /**
@@ -864,12 +869,12 @@ class BigRationalTest extends AbstractTestCase
     {
         return [
             ['1/8', 3, RoundingMode::UNNECESSARY, '0.125'],
-            ['1/16', 3, RoundingMode::UNNECESSARY, RoundingNecessaryException::class],
+            ['1/16', 3, RoundingMode::UNNECESSARY, RoundingNecessaryException::getNamespace()],
             ['1/16', 3, RoundingMode::HALF_DOWN, '0.062'],
             ['1/16', 3, RoundingMode::HALF_UP, '0.063'],
             ['1/9', 30, RoundingMode::DOWN, '0.111111111111111111111111111111'],
             ['1/9', 30, RoundingMode::UP, '0.111111111111111111111111111112'],
-            ['1/9', 100, RoundingMode::UNNECESSARY, RoundingNecessaryException::class],
+            ['1/9', 100, RoundingMode::UNNECESSARY, RoundingNecessaryException::getNamespace()],
         ];
     }
 

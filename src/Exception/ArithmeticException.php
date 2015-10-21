@@ -20,4 +20,9 @@ class ArithmeticException extends \RuntimeException
 
         return new self(sprintf($message, (string) $value, ~PHP_INT_MAX, PHP_INT_MAX));
     }
+
+    public static function getNamespace() {
+        $namespace =  get_called_class();
+        return $namespace;
+    }
 }

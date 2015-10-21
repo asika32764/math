@@ -14,7 +14,7 @@ class CalculatorDetectTest extends \PHPUnit_Framework_TestCase
         $currentCalculator = Calculator::get();
 
         Calculator::set(null);
-        $this->assertInstanceOf(Calculator::class, Calculator::get());
+        $this->assertInstanceOf(Calculator::getNamespace(), Calculator::get());
 
         Calculator::set($currentCalculator);
     }

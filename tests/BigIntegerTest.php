@@ -371,7 +371,8 @@ class BigIntegerTest extends AbstractTestCase
      */
     public function testMin(array $values, $min)
     {
-        $this->assertBigIntegerEquals($min, BigInteger::min(... $values));
+        $result = call_user_func_array([BigInteger::getNamespace(),'min'],$values);
+        $this->assertBigIntegerEquals($min, $result);
     }
 
     /**
@@ -414,7 +415,8 @@ class BigIntegerTest extends AbstractTestCase
      */
     public function testMax(array $values, $max)
     {
-        $this->assertBigIntegerEquals($max, BigInteger::max(... $values));
+        $result = call_user_func_array([BigInteger::getNamespace(),'max'],$values);
+        $this->assertBigIntegerEquals($max, $result);
     }
 
     /**
@@ -572,17 +574,17 @@ class BigIntegerTest extends AbstractTestCase
     {
         return [
             ['123456789098765432101234567890987654321', 1, '123456789098765432101234567890987654321'],
-            ['123456789098765432101234567890987654321', 2, RoundingNecessaryException::class],
-            ['123456789098765432101234567890987654321', 0, DivisionByZeroException::class],
-            ['123456789098765432101234567890987654321', 0.0, DivisionByZeroException::class],
-            ['123456789098765432101234567890987654321', 0.1, RoundingNecessaryException::class],
+            ['123456789098765432101234567890987654321', 2, RoundingNecessaryException::getNamespace()],
+            ['123456789098765432101234567890987654321', 0, DivisionByZeroException::getNamespace()],
+            ['123456789098765432101234567890987654321', 0.0, DivisionByZeroException::getNamespace()],
+            ['123456789098765432101234567890987654321', 0.1, RoundingNecessaryException::getNamespace()],
             ['123456789098765432101234567890987654322', 2, '61728394549382716050617283945493827161'],
             ['123456789098765432101234567890987654322', 2.0, '61728394549382716050617283945493827161'],
             ['123456789098765432101234567890987654322', '2', '61728394549382716050617283945493827161'],
             ['123456789098765432101234567890987654322', '2.0', '61728394549382716050617283945493827161'],
             ['123456789098765432101234567890987654322', '14/7', '61728394549382716050617283945493827161'],
-            ['61728394549382716050617283945493827161', '0.5', RoundingNecessaryException::class],
-            ['61728394549382716050617283945493827161', '1/2', RoundingNecessaryException::class],
+            ['61728394549382716050617283945493827161', '0.5', RoundingNecessaryException::getNamespace()],
+            ['61728394549382716050617283945493827161', '1/2', RoundingNecessaryException::getNamespace()],
         ];
     }
 
@@ -625,7 +627,7 @@ class BigIntegerTest extends AbstractTestCase
             $divisor .= '0';
 
             if ($expected === null) {
-                $this->setExpectedException(RoundingNecessaryException::class);
+                $this->setExpectedException(RoundingNecessaryException::getNamespace());
             }
 
             $actual = $number->dividedBy($divisor, $roundingMode);
@@ -1414,19 +1416,22 @@ class BigIntegerTest extends AbstractTestCase
             ['88888777776666655555444443333322222111110000099999', '100000000068736887', '2423071539'],
         ];
 
-        foreach ($tests as list ($a, $b, $gcd)) {
-            yield [$a, $b, $gcd];
-            yield [$b, $a, $gcd];
+        $yield = [];
+        foreach ($tests as $test) {
+            list ($a, $b, $gcd) = $test;
+            $yield[] = [$a, $b, $gcd];
+            $yield[] = [$b, $a, $gcd];
 
-            yield [$a, "-$b", $gcd];
-            yield [$b, "-$a", $gcd];
+            $yield[] = [$a, "-$b", $gcd];
+            $yield[] = [$b, "-$a", $gcd];
 
-            yield ["-$a", $b, $gcd];
-            yield ["-$b", $a, $gcd];
+            $yield[] = ["-$a", $b, $gcd];
+            $yield[] = ["-$b", $a, $gcd];
 
-            yield ["-$a", "-$b", $gcd];
-            yield ["-$b", "-$a", $gcd];
+            $yield[] = ["-$a", "-$b", $gcd];
+            $yield[] = ["-$b", "-$a", $gcd];
         }
+        return $yield;
     }
 
     /**

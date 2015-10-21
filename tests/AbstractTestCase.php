@@ -17,7 +17,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     final protected function assertBigIntegerEquals($expected, $actual)
     {
-        $this->assertInstanceOf(BigInteger::class, $actual);
+        $this->assertInstanceOf(BigInteger::getNamespace(), $actual);
         $this->assertSame($expected, (string) $actual);
     }
 
@@ -27,7 +27,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     final protected function assertBigDecimalEquals($expected, $actual)
     {
-        $this->assertInstanceOf(BigDecimal::class, $actual);
+        $this->assertInstanceOf(BigDecimal::getNamespace(), $actual);
         $this->assertSame($expected, (string) $actual);
     }
 
@@ -37,7 +37,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     final protected function assertBigRationalEquals($expected, $actual)
     {
-        $this->assertInstanceOf(BigRational::class, $actual);
+        $this->assertInstanceOf(BigRational::getNamespace(), $actual);
         $this->assertSame($expected, (string) $actual);
     }
 
@@ -48,7 +48,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     final protected function assertBigDecimalInternalValues($unscaledValue, $scale, $actual)
     {
-        $this->assertInstanceOf(BigDecimal::class, $actual);
+        $this->assertInstanceOf(BigDecimal::getNamespace(), $actual);
         $this->assertSame($unscaledValue, $actual->unscaledValue());
         $this->assertSame($scale, $actual->scale());
     }
@@ -60,7 +60,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     final protected function assertBigRationalInternalValues($numerator, $denominator, $actual)
     {
-        $this->assertInstanceOf(BigRational::class, $actual);
+        $this->assertInstanceOf(BigRational::getNamespace(), $actual);
         $this->assertSame($numerator, (string) $actual->numerator());
         $this->assertSame($denominator, (string) $actual->denominator());
     }

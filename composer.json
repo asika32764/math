@@ -8,8 +8,7 @@
         "Arbitrary-precision",
         "Arithmetic",
         "BigInteger",
-        "BigDecimal",
-        "BigRational"
+        "BigDecimal"
     ],
     "license": "MIT",
     "require": {

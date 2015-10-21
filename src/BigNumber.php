@@ -18,17 +18,7 @@ abstract class BigNumber
      * @var string
      */
     private static $regexp =
-        '/^' .
-        '(?<integral>[\-\+]?[0-9]+)' .
-        '(?:' .
-            '(?:' .
-                '(?:\.(?<fractional>[0-9]+))?' .
-                '(?:[eE](?<exponent>[\-\+]?[0-9]+))?' .
-            ')' . '|' . '(?:' .
-                '(?:\/(?<denominator>[0-9]+))?' .
-            ')' .
-        ')?' .
-        '$/';
+        '/^(?<integral>[\-\+]?[0-9]+)(?:(?:(?:\.(?<fractional>[0-9]+))?(?:[eE](?<exponent>[\-\+]?[0-9]+))?)|(?:(?:\/(?<denominator>[0-9]+))?))?$/';
 
     /**
      * Creates a BigNumber of the given value.
@@ -99,6 +89,11 @@ abstract class BigNumber
         return new BigInteger($integral);
     }
 
+    public static function getNamespace() {
+        $namespace =  get_called_class();
+        return $namespace;
+    }
+
     /**
      * Proxy method to access protected constructors from sibling classes.
      *
@@ -108,9 +103,14 @@ abstract class BigNumber
      *
      * @return static
      */
-    protected static function create(... $args)
+    protected static function create()
     {
-        return new static(... $args);
+        $args = func_get_args();
+        $class = get_called_class();
+        $reflection = new \ReflectionClass($class);
+        $instance = $reflection->newInstanceWithoutConstructor();
+        call_user_func_array(array($instance,'__construct'),$args);
+        return $instance;
     }
 
     /**
@@ -124,9 +124,11 @@ abstract class BigNumber
      * @throws \InvalidArgumentException If no values are given.
      * @throws ArithmeticException       If an argument is not valid.
      */
-    public static function min(...$values)
+    public static function min()
     {
         $min = null;
+
+        $values = func_get_args();
 
         foreach ($values as $value) {
             $value = static::of($value);
@@ -154,9 +156,11 @@ abstract class BigNumber
      * @throws \InvalidArgumentException If no values are given.
      * @throws ArithmeticException       If an argument is not valid.
      */
-    public static function max(...$values)
+    public static function max()
     {
         $max = null;
+
+        $values = func_get_args();
 
         foreach ($values as $value) {
             $value = static::of($value);

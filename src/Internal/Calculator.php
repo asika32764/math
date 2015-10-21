@@ -30,6 +30,11 @@ abstract class Calculator
      */
     private static $instance = null;
 
+    public static function getNamespace() {
+        $namespace =  get_called_class();
+        return $namespace;
+    }
+
     /**
      * Sets the Calculator instance to use.
      *

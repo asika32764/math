@@ -276,7 +276,8 @@ class BigDecimalTest extends AbstractTestCase
      */
     public function testMin(array $values, $min)
     {
-        $this->assertBigDecimalEquals($min, BigDecimal::min(... $values));
+        $result = call_user_func_array([BigDecimal::getNamespace(),'min'],$values);
+        $this->assertBigDecimalEquals($min, $result);
     }
 
     /**
@@ -324,7 +325,8 @@ class BigDecimalTest extends AbstractTestCase
      */
     public function testMax(array $values, $max)
     {
-        $this->assertBigDecimalEquals($max, BigDecimal::max(... $values));
+        $result = call_user_func_array([BigDecimal::getNamespace(),'max'],$values);
+        $this->assertBigDecimalEquals($max, $result);
     }
 
     /**
@@ -671,13 +673,13 @@ class BigDecimalTest extends AbstractTestCase
             [1, 1, '1'],
             ['1.0', '1.00', '1'],
             [1, 2, '0.5'],
-            [1, 3, RoundingNecessaryException::class],
+            [1, 3, RoundingNecessaryException::getNamespace()],
             [1, 4, '0.25'],
             [1, 5, '0.2'],
-            [1, 6, RoundingNecessaryException::class],
-            [1, 7, RoundingNecessaryException::class],
+            [1, 6, RoundingNecessaryException::getNamespace()],
+            [1, 7, RoundingNecessaryException::getNamespace()],
             [1, 8, '0.125'],
-            [1, 9, RoundingNecessaryException::class],
+            [1, 9, RoundingNecessaryException::getNamespace()],
             [1, 10, '0.1'],
             ['1.0', 2, '0.5'],
             ['1.00', 2, '0.5'],
@@ -694,8 +696,8 @@ class BigDecimalTest extends AbstractTestCase
             ['4849709849456546549849846510128399', '-18014398509481984', '-269212976880902984.935786476657271160117801400701864622533321380615234375'],
             ['-4849709849456546549849846510128399', '18014398509481984', '-269212976880902984.935786476657271160117801400701864622533321380615234375'],
             ['-4849709849456546549849846510128399', '-18014398509481984', '269212976880902984.935786476657271160117801400701864622533321380615234375'],
-            ['123', '0', DivisionByZeroException::class],
-            [-789, '0.0', DivisionByZeroException::class],
+            ['123', '0', DivisionByZeroException::getNamespace()],
+            [-789, '0.0', DivisionByZeroException::getNamespace()],
         ];
     }
 
@@ -777,7 +779,7 @@ class BigDecimalTest extends AbstractTestCase
     {
         foreach ([$zero, $one, $two] as $scale => $expected) {
             if ($expected === null) {
-                $this->setExpectedException(RoundingNecessaryException::class);
+                $this->setExpectedException(RoundingNecessaryException::getNamespace());
             }
 
             $actual = $number->dividedBy($divisor, $scale, $roundingMode);
