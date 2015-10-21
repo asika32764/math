@@ -26,7 +26,7 @@ Just define the following requirement in your `composer.json` file:
 
 ### Requirements
 
-This library requires PHP 5.6, PHP 7 or [HHVM](http://hhvm.com/).
+This library requires PHP 5.4, PHP 7 or [HHVM](http://hhvm.com/).
 
 Although the library can work seamlessly on any PHP installation, it is highly recommended that you install the
 [GMP](http://php.net/manual/en/book.gmp.php) or [BCMath](http://php.net/manual/en/book.bc.php) extension
@@ -44,7 +44,7 @@ existing code, etc.), `y` is incremented.
 
 It is therefore safe to lock your project to a given release cycle, such as `0.5.*`.
 
-If you want to use the latest version, and receive any non-breaking update, use `~0.5.1`.
+If you want to use the latest version, and receive any non-breaking update, use `~0.5.2`.
 
 If you need to upgrade to a newer release cycle, check the [release history](https://github.com/brick/math/releases)
 for a list of changes introduced by each further `0.x.0` version.
@@ -138,7 +138,7 @@ echo $ten->multipliedBy(3); // 30
 The methods can be chained for better readability:
 
 ```php
-echo BigInteger::of(10)->plus(5)->multipliedBy(3); // 30
+echo BigInteger::of(10)->plus(5)->multipliedBy(3); // 45
 ```
 
 #### Parameter types
