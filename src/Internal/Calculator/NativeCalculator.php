@@ -130,7 +130,9 @@ class NativeCalculator extends Calculator
      */
     public function divQ($a, $b)
     {
-        return $this->divQR($a, $b)[0];
+    	$r = $this->divQR($a, $b);
+
+        return $r[0];
     }
 
     /**
@@ -138,7 +140,9 @@ class NativeCalculator extends Calculator
      */
     public function divR($a, $b)
     {
-        return $this->divQR($a, $b)[1];
+	    $r = $this->divQR($a, $b);
+
+        return $r[1];
     }
 
     /**
@@ -147,19 +151,19 @@ class NativeCalculator extends Calculator
     public function divQR($a, $b)
     {
         if ($a === '0') {
-            return ['0', '0'];
+            return array('0', '0');
         }
 
         if ($a === $b) {
-            return ['1', '0'];
+            return array('1', '0');
         }
 
         if ($b === '1') {
-            return [$a, '0'];
+            return array($a, '0');
         }
 
         if ($b === '-1') {
-            return [$this->neg($a), '0'];
+            return array($this->neg($a), '0');
         }
 
         $this->init($a, $b, $aDig, $bDig, $aNeg, $bNeg, $aLen, $bLen);
@@ -174,7 +178,7 @@ class NativeCalculator extends Calculator
             $q = (string) $q;
             $r = (string) $r;
 
-            return [$q, $r];
+            return array($q, $r);
         }
 
         list ($q, $r) = $this->doDiv($aDig, $bDig, $aLen, $bLen);
@@ -187,7 +191,7 @@ class NativeCalculator extends Calculator
             $r = $this->neg($r);
         }
 
-        return [$q, $r];
+        return array($q, $r);
     }
 
     /**
@@ -364,7 +368,7 @@ class NativeCalculator extends Calculator
         $cmp = $this->doCmp($a, $b, $x, $y);
 
         if ($cmp === -1) {
-            return ['0', $a];
+            return array('0', $a);
         }
 
         // we now know that a > b && x >= y
@@ -406,7 +410,7 @@ class NativeCalculator extends Calculator
             $z = $y;
         }
 
-        return [$q, $r];
+        return array($q, $r);
     }
 
     /**

@@ -58,10 +58,10 @@ class GmpCalculator extends Calculator
     {
         list ($q, $r) = gmp_div_qr($a, $b);
 
-        return [
+        return array(
             gmp_strval($q),
             gmp_strval($r)
-        ];
+        );
     }
 
     /**

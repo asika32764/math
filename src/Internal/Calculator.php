@@ -294,12 +294,13 @@ abstract class Calculator
 
         $hasDiscardedFraction = ($remainder !== '0');
         $isPositiveOrZero = ($a[0] === '-') === ($b[0] === '-');
+        $self = $this;
 
-        $discardedFractionSign = function() use ($remainder, $b) {
-            $r = $this->abs($this->mul($remainder, '2'));
-            $b = $this->abs($b);
+        $discardedFractionSign = function() use ($remainder, $b, $self) {
+            $r = $self->abs($self->mul($remainder, '2'));
+            $b = $self->abs($b);
 
-            return $this->cmp($r, $b);
+            return $self->cmp($r, $b);
         };
 
         $increment = false;

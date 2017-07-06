@@ -108,8 +108,7 @@ abstract class BigNumber
         $args = func_get_args();
         $class = get_called_class();
         $reflection = new \ReflectionClass($class);
-        $instance = $reflection->newInstanceWithoutConstructor();
-        call_user_func_array(array($instance,'__construct'),$args);
+        $instance = $reflection->newInstanceArgs($args);
         return $instance;
     }
 

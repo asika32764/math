@@ -59,7 +59,7 @@ class BcMathCalculator extends Calculator
         $q = bcdiv($a, $b, 0);
         $r = bcmod($a, $b);
 
-        return [$q, $r];
+        return array($q, $r);
     }
 
     /**

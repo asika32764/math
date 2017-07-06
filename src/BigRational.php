@@ -29,7 +29,7 @@ final class BigRational extends BigNumber implements \Serializable
     private $denominator;
 
     /**
-     * Protected constructor. Use a factory method to obtain an instance.
+     * Protected constructor.
      *
      * @param BigInteger $numerator        The numerator.
      * @param BigInteger $denominator      The denominator.
@@ -37,7 +37,7 @@ final class BigRational extends BigNumber implements \Serializable
      *
      * @throws DivisionByZeroException If the denominator is zero.
      */
-    protected function __construct(BigInteger $numerator, BigInteger $denominator, $checkDemominator)
+    public function __construct(BigInteger $numerator, BigInteger $denominator, $checkDemominator)
     {
         if ($checkDemominator) {
             if ($denominator->isZero()) {

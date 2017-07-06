@@ -32,12 +32,12 @@ final class BigDecimal extends BigNumber implements \Serializable
     private $scale;
 
     /**
-     * Protected constructor. Use a factory method to obtain an instance.
+     * Protected constructor.
      *
      * @param string $value The unscaled value, validated.
      * @param int    $scale The scale, validated as a positive or zero integer.
      */
-    protected function __construct($value, $scale = 0)
+    public function __construct($value, $scale = 0)
     {
         $this->value = $value;
         $this->scale = $scale;
@@ -276,7 +276,7 @@ final class BigDecimal extends BigNumber implements \Serializable
 
         $calculator = Calculator::get();
 
-        foreach ([5, 2] as $prime) {
+        foreach (array(5, 2) as $prime) {
             for (;;) {
                 $lastDigit = (int) substr($d, -1);
 
@@ -411,7 +411,7 @@ final class BigDecimal extends BigNumber implements \Serializable
         $quotient = new BigDecimal($quotient, 0);
         $remainder = new BigDecimal($remainder, $scale);
 
-        return [$quotient, $remainder];
+        return array($quotient, $remainder);
     }
 
     /**

@@ -30,7 +30,7 @@ final class BigInteger extends BigNumber implements \Serializable
      *
      * @param string $value A string of digits, with optional leading minus sign.
      */
-    protected function __construct($value)
+    public function __construct($value)
     {
         $this->value = $value;
     }
@@ -373,10 +373,10 @@ final class BigInteger extends BigNumber implements \Serializable
 
         list ($quotient, $remainder) = Calculator::get()->divQR($this->value, $that->value);
 
-        return [
+        return array(
             new BigInteger($quotient),
             new BigInteger($remainder)
-        ];
+        );
     }
 
     /**
