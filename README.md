@@ -19,14 +19,14 @@ Just define the following requirement in your `composer.json` file:
 ```json
 {
     "require": {
-        "brick/math": "0.5.*"
+        "asika/math": "0.7.*"
     }
 }
 ```
 
 ### Requirements
 
-This library requires PHP 5.4, PHP 7 or [HHVM](http://hhvm.com/).
+This library requires PHP 5.3, PHP 7 or [HHVM](http://hhvm.com/).
 
 Although the library can work seamlessly on any PHP installation, it is highly recommended that you install the
 [GMP](http://php.net/manual/en/book.gmp.php) or [BCMath](http://php.net/manual/en/book.bc.php) extension
@@ -42,9 +42,7 @@ existing code, etc.), `y` is incremented.
 
 **When a breaking change is introduced, a new `0.x` version cycle is always started.**
 
-It is therefore safe to lock your project to a given release cycle, such as `0.5.*`.
-
-If you want to use the latest version, and receive any non-breaking update, use `~0.5.2`.
+It is therefore safe to lock your project to a given release cycle, such as `0.7.*`.
 
 If you need to upgrade to a newer release cycle, check the [release history](https://github.com/brick/math/releases)
 for a list of changes introduced by each further `0.x.0` version.
